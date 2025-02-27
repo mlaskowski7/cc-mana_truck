@@ -10,18 +10,40 @@ interface PlayerCardProps {
 const PlayerCard = (props: PlayerCardProps) => {
   const { player1, player2 } = useAppSelector((state) => state.players);
   const player = player1.name === props.name ? player1 : player2;
+  const usableMana = player.mana.filter((m) => m.usable);
+  const tappedMana = player.mana.filter((m) => !m.usable);
 
   return (
     <div className="bg-gray-900 p-8 rounded-2xl max-md: w-full flex justify-center items-center flex-col">
       <h2 className="text-2xl">{player.name}</h2>
       <p className="text-gray-500">Your mana:</p>
-      <div className="flex max-md:flex-col gap-4 font-bold">
-        <p className="text-red-600">Fire: {player.mana.elemental.fire}</p>
-        <p className="text-blue-400">Water: {player.mana.elemental.water}</p>
-        <p className="text-green-600">Earth: {player.mana.elemental.earth}</p>
-        <p className="text-gray-300">Air: {player.mana.elemental.air}</p>
-        <p className="text-yellow-200">Instant: {player.mana.instant}</p>
-        <p className="text-purple-800">Super: {player.mana.super}</p>
+      <div className="mt-2 text-white">
+        <h3 className="text-green-400 font-semibold">Usable Mana</h3>
+        <div className="grid grid-cols-3 gap-2">
+          {usableMana.length > 0 ? (
+            usableMana.map((m, index) => (
+              <p key={index} className="bg-green-700 p-2 rounded">
+                {m.type.toUpperCase()}
+              </p>
+            ))
+          ) : (
+            <p className="text-gray-400">Empty</p>
+          )}
+        </div>
+      </div>
+      <div className="mt-2 text-white">
+        <h3 className="text-red-400 font-semibold">Tapped Mana</h3>
+        <div className="grid grid-cols-3 gap-2">
+          {tappedMana.length > 0 ? (
+            tappedMana.map((m, index) => (
+              <p key={index} className="bg-red-700 p-2 rounded">
+                {m.type.toUpperCase()}
+              </p>
+            ))
+          ) : (
+            <p className="text-gray-400">Empty</p>
+          )}
+        </div>
       </div>
     </div>
   );
