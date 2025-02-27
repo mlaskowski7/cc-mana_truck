@@ -2,6 +2,7 @@
 
 import PlayerCard from "@/components/PlayerCard";
 import PlayerForm from "@/components/PlayerForm";
+import Round from "@/components/Round";
 import { useAppSelector } from "@/store";
 import React from "react";
 
@@ -13,9 +14,12 @@ const Home = () => {
       {!player1 || !player2 ? (
         <PlayerForm />
       ) : (
-        <div className="flex flex-col space-y-4">
-          <PlayerCard name={player1} />
-          <PlayerCard name={player2} />
+        <div className="flex flex-col gap-10">
+          <Round />
+          <div className="flex max-md:flex-col flex-row max-ms:space-y-4 space-y-0 space-x-4">
+            <PlayerCard name={player1} />
+            <PlayerCard name={player2} />
+          </div>
         </div>
       )}
     </div>

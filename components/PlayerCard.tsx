@@ -12,8 +12,11 @@ const PlayerCard = (props: PlayerCardProps) => {
   const { name } = props;
 
   return (
-    <div>
-      <h2>{name}</h2>
+    <div className="bg-gray-900 p-8 rounded-2xl">
+      <h2 className="text-2xl">{name}</h2>
+      <p>
+        Mana coins: <b>{manaCoins}</b>
+      </p>
     </div>
   );
 };

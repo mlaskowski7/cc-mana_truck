@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAppDispatch } from "../store";
-import { setPlayers } from "../store";
+import { setPlayers } from "@/store/players";
 
 const PlayerForm = () => {
   const dispatch = useAppDispatch();
@@ -38,14 +38,14 @@ const PlayerForm = () => {
           placeholder="Player 1 name..."
           value={player1}
           onChange={(e) => setPlayer1(e.target.value)}
-          className="p-2 border border-gray-300 rounded"
+          className="p-2"
         />
         <input
           type="text"
           placeholder="Player 2 name..."
           value={player2}
           onChange={(e) => setPlayer2(e.target.value)}
-          className="p-2 border border-gray-300 rounded"
+          className="p-2"
         />
 
         {/* Display error message if there is one */}
