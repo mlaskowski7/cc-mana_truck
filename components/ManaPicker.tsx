@@ -35,7 +35,8 @@ const ManaPicker = (props: ManaPickerProps) => {
         {manaTypes.map((type) => (
           <button
             key={type}
-            className="bg-blue-900 text-white p-2 rounded hover:bg-blue-700 cursor-pointer ease-in-out duration-300"
+            className="bg-blue-900 text-white p-2 rounded hover:bg-blue-700 cursor-pointer ease-in-out duration-300 disabled:bg-gray-700"
+            disabled={type == "super" && manaCoins < 2}
             onClick={() => handlePickMana(type)}
           >
             {type.toUpperCase()}
