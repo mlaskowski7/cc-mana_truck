@@ -64,7 +64,9 @@ const playerSlice = createSlice({
     ) => {
       if (action.payload.turn === 1) {
         action.payload.manasUsed.forEach((mana) => {
-          const foundMana = state.player1.mana.find((m) => m.type == mana);
+          const foundMana = state.player1.mana.find(
+            (m) => m.type == mana && m.usable == true
+          );
           if (foundMana) {
             foundMana.usable = false;
             foundMana.usableOnRound = action.payload.reusableOnRound;
@@ -94,18 +96,22 @@ const playerSlice = createSlice({
       state,
       action: PayloadAction<{
         round: number;
+        player: 1 | 2;
       }>
     ) => {
-      state.player1.mana.forEach((m) => {
-        if (m.usableOnRound <= action.payload.round) {
-          m.usable = true;
-        }
-      });
-      state.player2.mana.forEach((m) => {
-        if (m.usableOnRound <= action.payload.round) {
-          m.usable = true;
-        }
-      });
+      if (action.payload.player === 1) {
+        state.player1.mana.forEach((m) => {
+          if (m.usableOnRound <= action.payload.round) {
+            m.usable = true;
+          }
+        });
+      } else {
+        state.player2.mana.forEach((m) => {
+          if (m.usableOnRound <= action.payload.round) {
+            m.usable = true;
+          }
+        });
+      }
     },
   },
 });

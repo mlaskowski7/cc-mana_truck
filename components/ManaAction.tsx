@@ -13,7 +13,7 @@ const ManaAction = () => {
 
   useEffect(() => {
     setManaCoins(2);
-    dispatch(refreshManaTaps({ round }));
+    dispatch(refreshManaTaps({ round, player: turn }));
   }, [turn]);
 
   return (
