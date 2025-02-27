@@ -17,7 +17,7 @@ const ManaPicker = (props: ManaPickerProps) => {
   const { turn, round } = useAppSelector((state) => state.round);
 
   const handlePickMana = (manaType: string) => {
-    setManaCoins(manaCoins - 1);
+    setManaCoins(manaType == "super" ? manaCoins - 2 : manaCoins - 1);
     dispatch(
       pickMana({
         turn: turn,
