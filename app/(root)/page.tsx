@@ -11,14 +11,14 @@ const Home = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-10 p-6 rounded-lg">
-      {!player1 || !player2 ? (
+      {!player1.name || !player2.name ? (
         <PlayerForm />
       ) : (
         <div className="flex flex-col gap-10">
           <Round />
-          <div className="flex max-md:flex-col flex-row max-ms:space-y-4 space-y-0 space-x-4">
-            <PlayerCard name={player1} />
-            <PlayerCard name={player2} />
+          <div className="flex max-md:flex-col flex-row max-ms:space-y-4 space-y-0 space-x-4 gap-4">
+            <PlayerCard name={player1.name} />
+            <PlayerCard name={player2.name} />
           </div>
         </div>
       )}

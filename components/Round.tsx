@@ -7,7 +7,7 @@ const Round = () => {
   return (
     <div className="flex flex-col gap-2 text-gray-400 text-center items-center justify-center    ">
       <p>Current round: {round}</p>
-      <p>Player turn: {turn == 1 ? player1 : player2}</p>
+      <p>Player turn: {turn == 1 ? player1.name : player2.name}</p>
     </div>
   );
 };

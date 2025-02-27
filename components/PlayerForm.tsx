@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAppDispatch } from "../store";
-import { setPlayers } from "@/store/players";
+import { setPlayersNames } from "@/store/players";
 
 const PlayerForm = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ const PlayerForm = () => {
     }
 
     setError(null);
-    dispatch(setPlayers({ player1, player2 }));
+    dispatch(setPlayersNames({ player1, player2 }));
   };
 
   return (
