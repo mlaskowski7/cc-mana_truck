@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/store";
 import { utilizeMana } from "@/store/players";
 import { nextRound } from "@/store/round";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const ManaUtilizer = () => {
   const dispatch = useAppDispatch();
