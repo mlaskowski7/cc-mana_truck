@@ -1,5 +1,6 @@
 "use client";
 
+import ManaAction from "@/components/ManaAction";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerForm from "@/components/PlayerForm";
 import Round from "@/components/Round";
@@ -20,6 +21,7 @@ const Home = () => {
             <PlayerCard name={player1.name} />
             <PlayerCard name={player2.name} />
           </div>
+          <ManaAction />
         </div>
       )}
     </div>
