@@ -1,6 +1,5 @@
 import { Mana, ManaType } from "@/constants/mana";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import round from "./round";
 
 interface Player {
   name: string;
@@ -77,7 +76,9 @@ const playerSlice = createSlice({
         );
       } else {
         action.payload.manasUsed.forEach((mana) => {
-          const foundMana = state.player2.mana.find((m) => m.type == mana);
+          const foundMana = state.player2.mana.find(
+            (m) => m.type == mana && m.usable == true
+          );
           if (foundMana) {
             foundMana.usable = false;
             foundMana.usableOnRound = action.payload.reusableOnRound;
