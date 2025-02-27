@@ -18,11 +18,10 @@ const PlayerCard = (props: PlayerCardProps) => {
       <h2 className="text-2xl">{player.name}</h2>
       <p className="text-gray-500">Your mana:</p>
       <div className="mt-2 text-white">
-        <h3 className="text-green-400 font-semibold">Usable Mana</h3>
         <div className="grid grid-cols-3 gap-2">
           {usableMana.length > 0 ? (
             usableMana.map((m, index) => (
-              <p key={index} className="bg-green-700 p-2 rounded">
+              <p key={index} className="bg-blue-700 p-1 text-[10px] rounded">
                 {m.type.toUpperCase()}
               </p>
             ))
@@ -32,11 +31,11 @@ const PlayerCard = (props: PlayerCardProps) => {
         </div>
       </div>
       <div className="mt-2 text-white">
-        <h3 className="text-red-400 font-semibold">Tapped Mana</h3>
+        <h3 className="text-gray-400 font-semibold text-center">Tapped</h3>
         <div className="grid grid-cols-3 gap-2">
           {tappedMana.length > 0 ? (
             tappedMana.map((m, index) => (
-              <p key={index} className="bg-red-700 p-2 rounded">
+              <p key={index} className="bg-gray-700 p-1 text-[10px] rounded">
                 {m.type.toUpperCase()}
               </p>
             ))

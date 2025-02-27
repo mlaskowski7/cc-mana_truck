@@ -1,7 +1,9 @@
-type ManaType = "fire" | "water" | "earth" | "air" | "instant" | "super";
+export type ManaType = "fire" | "water" | "earth" | "air" | "instant" | "super";
 
-interface Mana {
+export interface Mana {
   type: ManaType;
   usable: boolean;
   usableOnRound: number;
 }
+
+export const manaTypes = ["fire", "water", "earth", "air", "instant", "super"];

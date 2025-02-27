@@ -1,18 +1,30 @@
 "use client";
 
-import { useAppDispatch } from "@/store";
-import { nextRound } from "@/store/round";
-import React, { useState } from "react";
+import { ManaType, manaTypes } from "@/constants/mana";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { pickMana } from "@/store/players";
+import React from "react";
 
-const ManaPicker = () => {
+interface ManaPickerProps {
+  manaCoins: number;
+  setManaCoins: (arg: number) => void;
+}
+
+const ManaPicker = (props: ManaPickerProps) => {
+  const { manaCoins, setManaCoins } = props;
+
   const dispatch = useAppDispatch();
-  const [manaCoins, setManaCoins] = useState(2);
-
-  const manaTypes = ["fire", "water", "earth", "air", "instant", "super"];
+  const { turn, round } = useAppSelector((state) => state.round);
 
   const handlePickMana = (manaType: string) => {
-    // dispatch(addMana({ player, type: manaType as any }));
-    dispatch(nextRound());
+    setManaCoins(manaCoins - 1);
+    dispatch(
+      pickMana({
+        turn: turn,
+        type: manaType as ManaType,
+        usableOnRound: round + 1,
+      })
+    );
   };
 
   return (
@@ -23,7 +35,7 @@ const ManaPicker = () => {
         {manaTypes.map((type) => (
           <button
             key={type}
-            className="bg-blue-700 text-white p-2 rounded hover:bg-blue-500 cursor-pointer ease-in-out duration-300"
+            className="bg-blue-900 text-white p-2 rounded hover:bg-blue-700 cursor-pointer ease-in-out duration-300"
             onClick={() => handlePickMana(type)}
           >
             {type.toUpperCase()}

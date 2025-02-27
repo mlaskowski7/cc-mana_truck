@@ -1,41 +1,83 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/store";
+import { utilizeMana } from "@/store/players";
 import { nextRound } from "@/store/round";
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const ManaUtilizer = () => {
   const dispatch = useAppDispatch();
   const { turn, round } = useAppSelector((state) => state.round);
   const { player1, player2 } = useAppSelector((state) => state.players);
-  const player = turn === 1 ? player1 : player2;
 
+  const player = turn === 1 ? player1 : player2;
   const usableMana = player.mana.filter((m) => m.usable);
 
-  const handleUseMana = (manaType: string) => {
-    // dispatch(tapMana({ player: turn, type: manaType as any }));
-    // dispatch(nextRound()); // Move to next turn
+  const [selectedManaTypes, setSelectedManaTypes] = useState<string[]>([]);
+
+  const toggleSelectedMana = (manaType: string) => {
+    setSelectedManaTypes((prev) => {
+      if (prev.includes(manaType)) {
+        return prev.filter((type) => type !== manaType);
+      } else {
+        return [...prev, manaType];
+      }
+    });
+  };
+
+  const handleUseSelectedMana = () => {
+    dispatch(
+      utilizeMana({
+        manasUsed: selectedManaTypes,
+        turn: turn,
+        reusableOnRound: round + 1,
+      })
+    );
+    dispatch(nextRound());
   };
 
   return (
     <div className="text-center">
-      <h2 className="text-white">Use Mana</h2>
+      <h2 className="text-white">Use Your Mana</h2>
       <div className="grid grid-cols-3 gap-4 mt-4">
         {usableMana.length > 0 ? (
-          usableMana.map((m, index) => (
-            <button
-              key={index}
-              className="bg-red-500 text-white p-2 rounded hover:bg-red-700"
-              onClick={() => handleUseMana(m.type)}
-            >
-              {m.type.toUpperCase()}
-            </button>
-          ))
+          usableMana.map((m, index) => {
+            const isSelected = selectedManaTypes.includes(m.type);
+            return (
+              <button
+                key={index}
+                className={`p-2 rounded text-white ease-in-out duration-300 cursor-pointer
+                  ${
+                    isSelected
+                      ? "bg-blue-900 hover:bg-blue-700"
+                      : "bg-blue-700 hover:bg-blue-900"
+                  }
+                `}
+                onClick={() => toggleSelectedMana(m.type)}
+              >
+                {m.type.toUpperCase()}
+              </button>
+            );
+          })
         ) : (
-          <p className="text-gray-400">No usable mana</p>
+          <button
+            className="text-gray-500 hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
+            onClick={handleUseSelectedMana}
+          >
+            No usable mana, click to proceed
+          </button>
         )}
       </div>
+      {selectedManaTypes.length > 0 && (
+        <div className="mt-6">
+          <button
+            className="text-white p-2 rounded border-1 border-white hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
+            onClick={handleUseSelectedMana}
+          >
+            Use Selected Mana
+          </button>
+        </div>
+      )}
     </div>
   );
 };
