@@ -1,11 +1,23 @@
+"use client";
+
+import PlayerCard from "@/components/PlayerCard";
+import PlayerForm from "@/components/PlayerForm";
+import { useAppSelector } from "@/store";
 import React from "react";
 
 const Home = () => {
+  const { player1, player2 } = useAppSelector((state) => state.players);
+
   return (
-    <div className="w-full h-full bg-black justify-center items-center">
-      <h1 className="text-blue-700 text font-bold text-2xl text-center mt-5">
-        Mana Manager
-      </h1>
+    <div className="flex flex-col justify-center items-center mt-10 p-6 rounded-lg">
+      {!player1 || !player2 ? (
+        <PlayerForm />
+      ) : (
+        <div className="flex flex-col space-y-4">
+          <PlayerCard name={player1} />
+          <PlayerCard name={player2} />
+        </div>
+      )}
     </div>
   );
 };
