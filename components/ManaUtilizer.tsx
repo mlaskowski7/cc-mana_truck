@@ -39,7 +39,7 @@ const ManaUtilizer = () => {
 
   return (
     <div className="text-center">
-      <h2 className="text-white">Use Your Mana</h2>
+      <h2 className="text-black">Use Your Mana</h2>
       <div className="grid grid-cols-3 gap-4 mt-4">
         {usableMana.length > 0 ? (
           usableMana.map((mana, index) => {
@@ -66,7 +66,7 @@ const ManaUtilizer = () => {
       </div>
       <div className="mt-6">
         <button
-          className="text-white p-2 rounded border-1 border-white hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
+          className="text-black p-2 rounded border-1 border-white hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
           onClick={handleUseSelectedMana}
         >
           Use Selected Mana

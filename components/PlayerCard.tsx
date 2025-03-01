@@ -15,7 +15,7 @@ const PlayerCard = (props: PlayerCardProps) => {
 
   return (
     <div className="bg-gray-900 p-8 rounded-2xl max-md: w-full flex justify-center items-center flex-col">
-      <h2 className="text-2xl">{player.name}</h2>
+      <h2 className="text-2xl text-white">{player.name}</h2>
       <p className="text-gray-500">Your mana:</p>
       <div className="mt-2 text-white">
         <div className="grid grid-cols-3 gap-2">

@@ -29,7 +29,7 @@ const ManaPicker = (props: ManaPickerProps) => {
 
   return (
     <div className="text-center">
-      <h2 className="text-white">Pick Mana</h2>
+      <h2 className="text-black">Pick Mana</h2>
       <p className="text-gray-500">Mana coins left: {manaCoins}</p>
       <div className="grid grid-cols-3 gap-4 mt-4">
         {manaTypes.map((type) => (
