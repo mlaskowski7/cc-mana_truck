@@ -50,8 +50,8 @@ const ManaUtilizer = () => {
                 className={`p-2 rounded text-white ease-in-out duration-300 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-blue-600 hover:bg-blue-900"
-                      : "bg-blue-900 hover:bg-blue-600"
+                      ? "bg-blue-600 border-2 border-black hover:bg-blue-900 hover:border-none"
+                      : "bg-blue-900 hover:bg-blue-600 hover:border-2 border-black"
                   }
                 `}
                 onClick={() => toggleSelectedMana(index)}
