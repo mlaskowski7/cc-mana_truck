@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: build and export static files
-        run: npm run build && npm run export
+        run: npx run build && npx run export
 
       - name: deploy to gh pages
         uses: JamesIves/github-pages-deploy-action@v4
