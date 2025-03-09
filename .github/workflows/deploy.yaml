@@ -1,37 +1,66 @@
-name: Generate static files from next and deploy to gh pages
+name: Deploy to github pages
 
-on: 
+on:
   push:
     branches:
-      - auditable 
+      - release
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      
-      - name: setup node
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: 'npm'
-      
-      - name: install deps
+
+      - name: Install dependencies
         run: npm install
 
-      - name: build and export static files
-        run: npx run build && npx run export
+      - name: Setup Pages
+        id: setup_pages
+        uses: actions/configure-pages@v5
 
-      - name: deploy to gh pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Restore cache
+        uses: actions/cache@v4
         with:
-          branch: gh-pages
-          folder: out
-          clean: true
+          path: |
+            .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Build with Next.js
+        run: npm run build
+        env:
+          PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
