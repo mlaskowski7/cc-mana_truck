@@ -1,0 +1,37 @@
+name: Generate static files from next and deploy to gh pages
+
+on: 
+  push:
+    branches:
+      - auditable 
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - name: install deps
+        run: npm install
+
+      - name: build and export static files
+        run: npm run build && npm run export
+
+      - name: deploy to gh pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: out
+          clean: true
