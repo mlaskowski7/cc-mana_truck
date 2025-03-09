@@ -33,9 +33,12 @@ const ManaUtilizer = () => {
         reusableOnRound: round + 1,
       })
     );
-    dispatch(nextRound());
     setSelectedManaIndices([]);
   };
+
+  const handleFinishTurn = () => {
+    dispatch(nextRound());
+  }
 
   return (
     <div className="text-center">
@@ -65,11 +68,28 @@ const ManaUtilizer = () => {
         )}
       </div>
       <div className="mt-6">
+          <button className="p-2 rounded bg-gray-900 text-white 
+                      hover:underline 
+                      underline-offset-4 
+                      ease-in-out duration-300 
+                      cursor-pointer 
+                      disabled:bg-gray-600 
+                      disabled:opacity-50 
+                      disabled:cursor-not-allowed 
+                      disabled:hover:no-underline 
+                      disabled:pointer-events-none"
+            onClick={handleUseSelectedMana}
+            disabled={usableMana.length <= 0}
+          >
+            Use Selected Mana
+          </button>
+      </div>
+      <div className="mt-6">
         <button
-          className="text-black p-2 rounded border-1 border-white hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
-          onClick={handleUseSelectedMana}
+          className="bg-gray-900 text-white p-2 rounded border-1 border-white hover:underline underline-offset-4 ease-in-out duration-300 cursor-pointer"
+          onClick={handleFinishTurn}
         >
-          Use Selected Mana
+          Finish Turn
         </button>
       </div>
     </div>
